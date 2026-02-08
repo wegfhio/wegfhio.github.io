@@ -1,1 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이주송 ❤️ 오세라 결혼합니다.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and Container Styles */
+        body {
+            font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Lighter background */
+            font-size: 16px;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+        body.modal-open {
+            overflow: hidden; /* Prevent scrolling when modal is open */
+        }
 
+        .container {
+            max-width: 768px; /* Typical mobile max width */
+            margin: 0 auto; /* Center on larger screens */
+            padding: 0 20px; /* Padding on sides for smaller screens */
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Subtle shadow */
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            opacity: 0; /* Hidden by default for animation */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.5s; /* Delay after main image */
+        }
+
+        header p {
+            margin: 5px 0;
+            font-size: 0.95em;
+            color: #777;
+        }
+
+        header h1 {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 2.8em;
+            color: #b76e79; /* A warm, inviting tone */
+            margin: 20px 0 10px;
+            letter-spacing: -1px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid #f0f0f0;
+            opacity: 0; /* Hidden by default for animation */
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8em;
+            color: #b76e79;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: #b76e79;
+            margin: 15px auto 0;
+        }
+
+        /* Main Visual (Image Placeholder) */
+        .main-visual {
+            padding: 0; /* No top/bottom padding for full-width image */
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 450px; /* Adjusted height for visual impact */
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.3em;
+            border-radius: 0; /* No border-radius for full width */
+            overflow: hidden; /* Ensure content stays within bounds */
+            opacity: 0; /* Hidden by default for animation */
+            animation: fadeInScale 1.5s ease-out forwards; /* Custom animation for image */
+        }
+        
+        /* Invitation Text */
+        .invitation-text {
+            font-size: 1.1em;
+            color: #555;
+            text-align: center;
+            line-height: 2;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        /* Parents Names Section */
+        .parents-names { animation-delay: 2.0s; }
+        .parents-names .details-grid {
+            grid-template-columns: 1fr; /* Stack on small screens */
+            text-align: center;
+            font-size: 1.05em;
+            color: #555;
+        }
+
+        .parents-names .details-grid div strong {
+            display: block;
+            font-size: 1.2em;
+            color: #b76e79;
+            margin-bottom: 10px;
+        }
+        .parents-names .details-grid div {
+            margin-bottom: 20px;
+        }
+        .parents-names .details-grid div:last-child {
+            margin-bottom: 0;
+        }
+
+        /* When/Where Section */
+        .when-where { animation-delay: 2.5s; }
+        .date-location {
+            font-size: 1.1em;
+            color: #555;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 350px; /* Larger map area */
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 30px;
+            border-radius: 0;
+        }
+
+        /* Contact Info Section */
+        .contact-info { animation-delay: 3.0s; }
+        .contact-info .details-grid {
+            grid-template-columns: 1fr; /* Stack on small screens */
+            text-align: center;
+        }
+        .contact-info .details-grid div {
+            margin-bottom: 20px;
+            font-size: 1.0em;
+        }
+        .contact-info .details-grid div strong {
+            display: block;
+            font-size: 1.1em;
+            color: #b76e79;
+            margin-bottom: 10px;
+        }
+        .contact-info p {
+            margin: 8px 0;
+        }
+        .contact-info span {
+            display: inline-block;
+            width: auto;
+            min-width: 70px; /* Adjust as needed */
+            text-align: right;
+            margin-right: 10px;
+            color: #777;
+        }
+        .contact-info a {
+            color: #666;
+            text-decoration: none;
+            border-bottom: 1px solid #ccc; /* Subtle underline */
+            padding-bottom: 2px;
+        }
+        .contact-info a:hover {
+            color: #b76e79;
+            border-color: #b76e79;
+        }
+
+        /* Bank Info Section */
+        .bank-info { animation-delay: 3.5s; }
+        .bank-info {
+            text-align: center;
+            font-size: 1.0em;
+            color: #555;
+        }
+        .bank-info p {
+            margin: 10px 0;
+        }
+        .bank-info strong {
+            color: #b76e79;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid #f0f0f0;
+            color: #999;
+            font-size: 0.85em;
+            opacity: 0; /* Hidden by default for animation */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 4.0s;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px; /* More padding on larger screens */
+            }
+            .parents-names .details-grid,
+            .contact-info .details-grid {
+                grid-template-columns: 1fr 1fr; /* Side-by-side on larger screens */
+                text-align: left;
+            }
+            .parents-names .details-grid div {
+                margin-bottom: 0;
+            }
+            .contact-info .details-grid div {
+                margin-bottom: 0;
+            }
+            .contact-info span {
+                text-align: left;
+                min-width: 80px;
+            }
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 600px; /* Adjust height as needed */
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        .modal-close-button {
+            background-color: #b76e79;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .modal-close-button:hover {
+            background-color: #a05c65;
+        }
+    </style>
+</head>
+<body class="modal-open">
+    <!-- Modal Overlay for Google Form -->
+    <div class="modal-overlay active" id="googleFormModal">
+        <div class="modal-content">
+            <p>메인 페이지로 이동하시려면 구글 폼을 제출 후 아래 버튼을 눌러주세요.</p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4_pecZI1DQY7O8GFsmmBCeCC4dAVdHDOG0a5ulCAb1TWGng/viewform?embedded=true" width="640" height="812" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+            <button class="modal-close-button" onclick="closeGoogleFormModal()">메인 페이지로 이동</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <p>YYYY년 MM월 DD일 요일 HH시</p>
+            <p>오하 웨딩홀 이름 상세 주소</p>
+            <h1>신랑 ❤️ 신부</h1>
+            <p>결혼합니다</p>
+        </header>
+
+        <section class="main-visual">
+            <div class="image-placeholder">메인 이미지 영역 (사용자 사진)</div>
+        </section>
+
+        <section class="invitation">
+            <h2>초대합니다</h2>
+            <p class="invitation-text">
+                저희 두 사람이 사랑으로 만나,<br>
+                새로운 가정을 이루게 되었습니다.<br>
+                귀한 걸음 하시어 축복해 주시면<br>
+                더 없는 기쁨이겠습니다.
+            </p>
+        </section>
+
+        <section class="parents-names">
+            <h2>혼주</h2>
+            <div class="details-grid">
+                <div>
+                    <strong>신랑</strong><br>
+                    아버지: 신랑 부친 성함<br>
+                    어머니: 신랑 모친 성함
+                </div>
+                <div>
+                    <strong>신부 이름</strong><br>
+                    아버지: 신부 부친 성함<br>
+                    어머니: 신부 모친 성함
+                </div>
+            </div>
+        </section>
+
+        <section class="when-where">
+            <h2>언제 어디서 하나요?</h2>
+            <p class="date-location">
+                YYYY년 MM월 DD일 요일 HH시<br>
+                웨딩홀 이름 상세 주소
+            </p>
+            <div class="map-placeholder">지도 영역 (카카오맵, 네이버맵 등 연동)</div>
+            <p style="text-align: center; margin-top: 10px;">
+                <a href="#" style="color: #b76e79; text-decoration: none;">모바일 길찾기</a>
+            </p>
+        </section>
+
+        <section class="contact-info">
+            <h2>연락처</h2>
+            <div class="details-grid">
+                <div>
+                    <strong>신랑 이름</strong><br>
+                    <p><span>신랑에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                    <p><span>신랑 부친에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                    <p><span>신랑 모친에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                </div>
+                <div>
+                    <strong>신부 이름</strong><br>
+                    <p><span>신부에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                    <p><span>신부 부친에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                    <p><span>신부 모친에게</span> <a href="tel:010-XXXX-XXXX">전화하기</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bank-info">
+            <h2>마음 전하는 곳</h2>
+            <p style="text-align: center; margin-bottom: 20px;">저희에게 축하의 마음을 전달해주시는 분들을 위해 계좌번호를 남깁니다.</p>
+            <p><strong>신랑 이름</strong> [은행명] [계좌번호] (예금주)</p>
+            <p><strong>신부 이름</strong> [은행명] [계좌번호] (예금주)</p>
+        </section>
+
+        <footer>
+            <p>&copy; YYYY 신랑이름 ❤️ 신부이름. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function closeGoogleFormModal() {
+            document.getElementById('googleFormModal').classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+    </script>
+</body>
+</html>
